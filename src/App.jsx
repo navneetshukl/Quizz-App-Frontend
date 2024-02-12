@@ -20,8 +20,6 @@ function App() {
           <Route path="/quizz" Component={Quizz} />
         </Routes>
       </BrowserRouter>
-      {/* <Navbar/>
-      <Home/> */}
     </>
   );
 }
