@@ -1,12 +1,25 @@
 import React from "react";
 
-const Login = () => {
+const Register = () => {
   return (
-    <div className="container">
-      <h1 className="title is-size-3 has-text-centered mt-5">Login</h1>
+      <div className="container">
+          <h1 className="title is-size-3 has-text-centered mt-5">Register</h1>
       <div className="columns is-centered mt-5">
         <div className="column is-half">
           <form>
+            <div className="field">
+              <label className="label">Name</label>
+              <div className="control">
+                <input
+                  className="input"
+                  type="text"
+                  placeholder="Enter your name"
+                  name="name"
+                  required
+                />
+              </div>
+            </div>
+
             <div className="field">
               <label className="label">Email</label>
               <div className="control">
@@ -47,4 +60,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;
