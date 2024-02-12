@@ -18,7 +18,7 @@ const Login = () => {
     console.log(await response.json());
 
     if (response.ok) {
-      navigate("/")
+      navigate("/quizz")
     }
 
     setEmail("");

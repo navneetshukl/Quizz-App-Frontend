@@ -14,10 +14,10 @@ function App() {
       <BrowserRouter>
         <Navbar />
         <Routes>
-          <Route path="/" exact Component={Home} />
+          <Route path="/" Component={Login} />
           <Route path="/api/register" Component={Register} />
-          <Route path="/api/login" Component={Login} />
-          <Route path="/quizz" Component={Quizz} />
+          {/* <Route path="/api/login" exact Component={Login} /> */}
+          <Route path="/quizz" Component={Home} />
         </Routes>
       </BrowserRouter>
     </>

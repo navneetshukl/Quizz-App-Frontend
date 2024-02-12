@@ -21,7 +21,7 @@ const Register = () => {
 
     if (response.ok) {
       //! Redirect to login
-      navigate("/api/login");
+      navigate("/");
     }
 
     setName("");
