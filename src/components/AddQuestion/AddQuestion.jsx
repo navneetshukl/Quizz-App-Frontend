@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Cookies from "js-cookie";
 import Swal from "sweetalert2";
 
 import "bulma/css/bulma.min.css";
@@ -13,7 +14,7 @@ function AddQuestion() {
   let [category, setCategory] = useState("");
   let [error, setError] = useState(false);
 
-  const formSubmit = (event) => {
+  const formSubmit = async (event) => {
     event.preventDefault();
 
     if (
@@ -33,15 +34,35 @@ function AddQuestion() {
       });
       return;
     }
-    setError(false);
-
-    console.log("Question:", question);
-    console.log("Option-1:", option1);
-    console.log("Option-2:", option2);
-    console.log("Option-3:", option3);
-    console.log("Option-4:", option4);
-    console.log("Correct Option:", correctOption);
-    console.log("Category:", category);
+    const response = await fetch("http://localhost:8080/add/question", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        category: category,
+        question: question,
+        option1: option1,
+        option2: option2,
+        option3: option3,
+        option4: option4,
+        correct_option: correctOption,
+      }),
+      credentials: "include",
+    });
+    console.log(await response.json());
+    if (response.ok) {
+      setCategory("");
+      setCorrectOption("");
+      setOption1("");
+      setOption2("");
+      setOption3("");
+      setOption4("");
+      setQuestion("");
+      setError(false);
+    } else {
+      console.log("Some error occured");
+    }
   };
 
   return (

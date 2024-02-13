@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate,Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 const Login = () => {
   let [email, setEmail] = useState("");
   let [password, setPassword] = useState("");
@@ -11,6 +11,7 @@ const Login = () => {
 
     const response = await fetch("http://localhost:8080/api/login", {
       method: "POST",
+      credentials: "include",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
     });
@@ -18,7 +19,7 @@ const Login = () => {
     console.log(await response.json());
 
     if (response.ok) {
-      navigate("/quizz")
+      navigate("/quizz");
     }
 
     setEmail("");
@@ -69,10 +70,13 @@ const Login = () => {
               </div>
             </div>
           </form>
-          <div className="field " style={{"margin":"30px"}}>
+          <div className="field " style={{ margin: "30px" }}>
             <p>
               Not registered?{" "}
-              <Link to="/api/register" className="button is-danger is-text is-default is-responsive is-rounded is-link is-focused ">
+              <Link
+                to="/api/register"
+                className="button is-danger is-text is-default is-responsive is-rounded is-link is-focused "
+              >
                 Register
               </Link>
             </p>

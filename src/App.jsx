@@ -19,7 +19,7 @@ function App() {
           <Route path="/api/register" Component={Register} />
           {/* <Route path="/api/login" exact Component={Login} /> */}
           <Route path="/quizz" Component={Home} />
-          <Route path="/add" Component={AddQuestion} />
+          <Route path="/add/question" Component={AddQuestion} />
         </Routes>
       </BrowserRouter>
     </>
