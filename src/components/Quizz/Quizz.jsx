@@ -20,12 +20,31 @@ const Quizz = () => {
     setQuestions(data);
   };
 
-  useEffect(() => {
-    getQuestions();
-  }, []);
+    useEffect(() => {
+      getQuestions();
+    }, []);
+  
 
   const startTest = (e) => {
     setStart(true);
+  };
+
+  let n = questions.length;
+
+  const IncrementIndex = () => {
+    if (index < n - 1) {
+      setIndex(index + 1);
+    } else {
+      return;
+    }
+  };
+
+  const DecreaseIndex = () => {
+    if (index > 0) {
+      setIndex(index - 1);
+    } else {
+      return;
+    }
   };
 
   return (
@@ -55,37 +74,37 @@ const Quizz = () => {
               }}
             >
               <div className="mt-5 mx-5">
-                <h2 className="title is-4 mb-4">Question:</h2>
+                <h2 className="title is-4 mb-4">Question:{index + 1}</h2>
                 <p className="title is-size-4 mb-4">
-                  This is question section? {questions.length}
+                  {questions[index].question}
                 </p>{" "}
                 <div className="mt-5"></div>
                 <div className="field mb-5" style={{ marginBottom: "20px" }}>
                   {" "}
                   <input id="option1" type="checkbox" className="checkbox" />
                   <label htmlFor="option1" className="ml-2 is-size-5">
-                    Option
+                    {questions[index].option1}
                   </label>
                 </div>
                 <div className="field mb-5" style={{ marginBottom: "20px" }}>
                   {" "}
                   <input id="option2" type="checkbox" className="checkbox" />
                   <label htmlFor="option2" className="ml-2 is-size-5">
-                    Option
+                    {questions[index].option2}
                   </label>
                 </div>
                 <div className="field mb-5" style={{ marginBottom: "20px" }}>
                   {" "}
                   <input id="option3" type="checkbox" className="checkbox" />
                   <label htmlFor="option3" className="ml-2 is-size-5">
-                    Option
+                    {questions[index].option3}
                   </label>
                 </div>
                 <div className="field mb-5" style={{ marginBottom: "20px" }}>
                   {" "}
                   <input id="option4" type="checkbox" className="checkbox" />
                   <label htmlFor="option4" className="ml-2 is-size-5">
-                    Option
+                    {questions[index].option4}
                   </label>
                 </div>
               </div>
@@ -94,13 +113,19 @@ const Quizz = () => {
           <div className="columns is-centered mt-1">
             <div className="column is-half ">
               <div className="buttons is-centered ">
-                <button className="button is-warning is-medium mx-5">
+                <button
+                  className="button is-warning is-medium mx-5"
+                  onClick={DecreaseIndex}
+                >
                   Back
                 </button>
                 <button className="button is-danger is-medium mx-5">
                   Submit
                 </button>
-                <button className="button is-primary is-medium mx-5">
+                <button
+                  className="button is-primary is-medium mx-5"
+                  onClick={IncrementIndex}
+                >
                   Next
                 </button>
               </div>
@@ -110,7 +135,6 @@ const Quizz = () => {
       )}
     </>
   );
-
 };
 
 export default Quizz;
