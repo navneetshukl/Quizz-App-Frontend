@@ -17,8 +17,9 @@ function App() {
         <Routes>
           <Route path="/" Component={Login} />
           <Route path="/api/register" Component={Register} />
-          {/* <Route path="/api/login" exact Component={Login} /> */}
+
           <Route path="/quizz" Component={Home} />
+          <Route path="/quizz/:id" Component={Quizz} />
           <Route path="/add/question" Component={AddQuestion} />
         </Routes>
       </BrowserRouter>
