@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 const Quizz = () => {
   let { id } = useParams();
@@ -9,7 +9,9 @@ const Quizz = () => {
   let [start, setStart] = useState(false);
   let [selectedOption, setSelectedOption] = useState(null);
   let [array, setArray] = useState([]);
+  let [answer, setAnswer] = useState(0);
 
+  //! getQuestions function fetch all the questions from backend server
   const getQuestions = async () => {
     const response = await fetch(`http://localhost:8080/quizz/${id}`, {
       method: "GET",
@@ -19,6 +21,7 @@ const Quizz = () => {
       credentials: "include",
     });
     const data = await response.json();
+
     setQuestions(data);
   };
 
@@ -26,14 +29,14 @@ const Quizz = () => {
     getQuestions();
   }, []);
 
+  //! startTest function will start the test
   const startTest = (e) => {
     setStart(true);
   };
 
   let n = questions.length;
 
-  console.log(array[0]);
-
+  //! IncrementIndex function will increment the index for next question
   const IncrementIndex = () => {
     if (index < n - 1) {
       setIndex(index + 1);
@@ -42,6 +45,8 @@ const Quizz = () => {
       return;
     }
   };
+
+  //! DecreaseIndex function will decrement the index for previous question
   const DecreaseIndex = () => {
     if (index > 0) {
       setIndex(index - 1);
@@ -51,12 +56,47 @@ const Quizz = () => {
     }
   };
 
+  //! getAnswer function will compare the correct option and selected option
   const getAnswer = (event) => {
     const selectedValue = event.target.value;
     setSelectedOption(selectedValue === selectedOption ? null : selectedValue);
 
     console.log("Selected Value is :", selectedValue);
+
+    console.log("Correct Answer is ", questions[index].correct_option);
+    if (selectedValue === questions[index].correct_option) {
+      setAnswer(answer + 1);
+    }
     setArray([...array, selectedValue]);
+  };
+
+  //! totalPoint function will call when submit button is pressed for total point
+  const totalPoint = () => {
+    console.log("Total point is ", answer);
+    let ans = answer;
+    setArray([]);
+    setAnswer(0);
+
+    return (
+      <>
+        <div
+          className="container is-flex is-justify-content-center is-align-items-center"
+          style={{ minHeight: "100vh" }}
+        >
+          <h1 className="title is-1 mb-6">
+            {ans} / {n}
+          </h1>
+        </div>
+        <div>
+          <Link
+            to="/quizz"
+            className="button is-medium is-responsive is-danger"
+          >
+            Medium
+          </Link>
+        </div>
+      </>
+    );
   };
 
   return (
@@ -100,7 +140,7 @@ const Quizz = () => {
                     onChange={getAnswer}
                     value={"option1"}
                     checked={selectedOption === "option1"}
-                    disabled={!!selectedOption && selectedOption !== "option1"}
+                    disabled={!!selectedOption}
                   />
                   <label htmlFor="option1" className="ml-2 is-size-5">
                     {questions[index].option1}
@@ -115,7 +155,7 @@ const Quizz = () => {
                     onChange={getAnswer}
                     value={"option2"}
                     checked={selectedOption === "option2"}
-                    disabled={!!selectedOption && selectedOption !== "option2"}
+                    disabled={!!selectedOption}
                   />
                   <label htmlFor="option2" className="ml-2 is-size-5">
                     {questions[index].option2}
@@ -130,7 +170,7 @@ const Quizz = () => {
                     onChange={getAnswer}
                     value={"option3"}
                     checked={selectedOption === "option3"}
-                    disabled={!!selectedOption && selectedOption !== "option3"}
+                    disabled={!!selectedOption}
                   />
                   <label htmlFor="option3" className="ml-2 is-size-5">
                     {questions[index].option3}
@@ -145,7 +185,7 @@ const Quizz = () => {
                     onChange={getAnswer}
                     value={"option4"}
                     checked={selectedOption === "option4"}
-                    disabled={!!selectedOption && selectedOption !== "option4"}
+                    disabled={!!selectedOption}
                   />
                   <label htmlFor="option4" className="ml-2 is-size-5">
                     {questions[index].option4}
@@ -163,7 +203,10 @@ const Quizz = () => {
                 >
                   Back
                 </button>
-                <button className="button is-danger is-medium mx-5">
+                <button
+                  className="button is-danger is-medium mx-5"
+                  onClick={totalPoint}
+                >
                   Submit
                 </button>
                 <button
