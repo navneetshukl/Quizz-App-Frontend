@@ -7,6 +7,8 @@ const Quizz = () => {
   let [index, setIndex] = useState(0);
   let [questions, setQuestions] = useState([]);
   let [start, setStart] = useState(false);
+  let [selectedOption, setSelectedOption] = useState(null);
+  let [array, setArray] = useState([]);
 
   const getQuestions = async () => {
     const response = await fetch(`http://localhost:8080/quizz/${id}`, {
@@ -20,10 +22,9 @@ const Quizz = () => {
     setQuestions(data);
   };
 
-    useEffect(() => {
-      getQuestions();
-    }, []);
-  
+  useEffect(() => {
+    getQuestions();
+  }, []);
 
   const startTest = (e) => {
     setStart(true);
@@ -31,20 +32,31 @@ const Quizz = () => {
 
   let n = questions.length;
 
+  console.log(array[0]);
+
   const IncrementIndex = () => {
     if (index < n - 1) {
       setIndex(index + 1);
+      setSelectedOption(array[index + 1]);
+    } else {
+      return;
+    }
+  };
+  const DecreaseIndex = () => {
+    if (index > 0) {
+      setIndex(index - 1);
+      setSelectedOption(array[index - 1]);
     } else {
       return;
     }
   };
 
-  const DecreaseIndex = () => {
-    if (index > 0) {
-      setIndex(index - 1);
-    } else {
-      return;
-    }
+  const getAnswer = (event) => {
+    const selectedValue = event.target.value;
+    setSelectedOption(selectedValue === selectedOption ? null : selectedValue);
+
+    console.log("Selected Value is :", selectedValue);
+    setArray([...array, selectedValue]);
   };
 
   return (
@@ -81,28 +93,60 @@ const Quizz = () => {
                 <div className="mt-5"></div>
                 <div className="field mb-5" style={{ marginBottom: "20px" }}>
                   {" "}
-                  <input id="option1" type="checkbox" className="checkbox" />
+                  <input
+                    id="option1"
+                    type="checkbox"
+                    className="checkbox"
+                    onChange={getAnswer}
+                    value={"option1"}
+                    checked={selectedOption === "option1"}
+                    disabled={!!selectedOption && selectedOption !== "option1"}
+                  />
                   <label htmlFor="option1" className="ml-2 is-size-5">
                     {questions[index].option1}
                   </label>
                 </div>
                 <div className="field mb-5" style={{ marginBottom: "20px" }}>
                   {" "}
-                  <input id="option2" type="checkbox" className="checkbox" />
+                  <input
+                    id="option2"
+                    type="checkbox"
+                    className="checkbox"
+                    onChange={getAnswer}
+                    value={"option2"}
+                    checked={selectedOption === "option2"}
+                    disabled={!!selectedOption && selectedOption !== "option2"}
+                  />
                   <label htmlFor="option2" className="ml-2 is-size-5">
                     {questions[index].option2}
                   </label>
                 </div>
                 <div className="field mb-5" style={{ marginBottom: "20px" }}>
                   {" "}
-                  <input id="option3" type="checkbox" className="checkbox" />
+                  <input
+                    id="option3"
+                    type="checkbox"
+                    className="checkbox"
+                    onChange={getAnswer}
+                    value={"option3"}
+                    checked={selectedOption === "option3"}
+                    disabled={!!selectedOption && selectedOption !== "option3"}
+                  />
                   <label htmlFor="option3" className="ml-2 is-size-5">
                     {questions[index].option3}
                   </label>
                 </div>
                 <div className="field mb-5" style={{ marginBottom: "20px" }}>
                   {" "}
-                  <input id="option4" type="checkbox" className="checkbox" />
+                  <input
+                    id="option4"
+                    type="checkbox"
+                    className="checkbox"
+                    onChange={getAnswer}
+                    value={"option4"}
+                    checked={selectedOption === "option4"}
+                    disabled={!!selectedOption && selectedOption !== "option4"}
+                  />
                   <label htmlFor="option4" className="ml-2 is-size-5">
                     {questions[index].option4}
                   </label>
