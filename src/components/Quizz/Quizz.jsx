@@ -79,7 +79,28 @@ const Quizz = () => {
     setSubmitted(true);
   };
 
+  //! callServer function will send the detail of current test to backend
+  const callServer = async () => {
+    const response = await fetch("http://localhost:8080/quizz/mail", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify({
+        subject: id,
+        total: answer,
+        maximum: n,
+      }),
+    });
+
+    const res = await response.json();
+    console.log(res);
+  };
+
+  //! goToHome function redirect to home page after the completion of test
   const goToHome = () => {
+    callServer();
     setSubmitted(false);
   };
 
