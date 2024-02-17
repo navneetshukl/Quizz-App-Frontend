@@ -30,6 +30,9 @@ const Navbar = () => {
           <Link to="/add/question" className="navbar-item">
             Contibute
           </Link>
+          <Link to="/user/detail" className="navbar-item">
+            Detail
+          </Link>
 
           <div className="navbar-item has-dropdown is-hoverable"></div>
         </div>

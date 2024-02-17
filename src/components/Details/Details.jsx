@@ -55,9 +55,9 @@ const Details = () => {
         No data available
       </div>
     );
-    }
-    
-    console.log(data)
+  }
+
+  console.log(data);
 
   return (
     <div className="container">
@@ -73,16 +73,30 @@ const Details = () => {
             </tr>
           </thead>
           <tbody>
-            {data.map((item) => (
+            {data.map((item) => {
+              // Parse the date string to get day, month, and year
+              const dateObj = new Date(item.CreatedAt);
+              const day = String(dateObj.getDate()).padStart(2, "0");
+              const month = String(dateObj.getMonth() + 1).padStart(2, "0");
+              const year = dateObj.getFullYear();
+
+              // Concatenate day, month, and year with '-' separator
+              const formattedDate = `${day}-${month}-${year}`;
+
+              return (
                 <tr key={item.id}>
-                    <td>{item.CreatedAt }</td>
-                <td>{item.total}</td>
-                <td>{item.maximum}</td>
-                <td>{item.subject}</td>
-              </tr>
-            ))}
+                  <td>{formattedDate}</td>
+                  <td>{item.total}</td>
+                  <td>{item.maximum}</td>
+                  <td>{item.subject}</td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
+      </div>
+      <div className="container">
+        <button className="button is-success">Print</button>
       </div>
     </div>
   );
