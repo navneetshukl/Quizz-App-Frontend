@@ -8,6 +8,7 @@ import Quizz from "./components/Quizz/Quizz";
 import Register from "./components/Register/Register";
 import Login from "./components/Login/Login";
 import AddQuestion from "./components/AddQuestion/AddQuestion";
+import Details from "./components/Details/Details";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/quizz" Component={Home} />
           <Route path="/quizz/:id" Component={Quizz} />
           <Route path="/add/question" Component={AddQuestion} />
+          <Route path="/user/detail" Component={Details} />
         </Routes>
       </BrowserRouter>
     </>
