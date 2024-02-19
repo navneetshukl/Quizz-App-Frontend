@@ -3,7 +3,7 @@ import "bulma/css/bulma.min.css";
 import "./App.css";
 import Home from "./components/Home/Home";
 import Navbar from "./components/Navbar/Navbar";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Quizz from "./components/Quizz/Quizz";
 import Register from "./components/Register/Register";
 import Login from "./components/Login/Login";
