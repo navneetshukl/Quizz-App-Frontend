@@ -2,6 +2,19 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
+  const signup = async () => {
+    const response = await fetch("http://localhost:8080/api/logout", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    });
+
+    const data = await response.json();
+    console.log(data);
+  };
+
   return (
     <nav
       className="navbar is-dark"
@@ -39,10 +52,10 @@ const Navbar = () => {
 
         <div className="navbar-end">
           <div className="navbar-item">
-            <div className="buttons">
-              <a className="button is-primary has-background-danger">
+            <div className="buttons" onClick={signup}>
+              <Link to="/" className="button is-primary has-background-danger">
                 <strong>Sign up</strong>
-              </a>
+              </Link>
             </div>
           </div>
         </div>
